@@ -136,16 +136,16 @@ export function AuthProvider({ children }: Props) {
 
     const res = await axios.post(endpoints.auth.login, data);
 
-    const { accessToken, user } = res.data;
+    const { access_token, user } = res.data;
 
-    setSession(accessToken);
+    setSession(access_token);
 
     dispatch({
       type: Types.LOGIN,
       payload: {
         user: {
           ...user,
-          accessToken,
+          access_token,
         },
       },
     });
@@ -162,17 +162,16 @@ export function AuthProvider({ children }: Props) {
       };
 
       const res = await axios.post(endpoints.auth.register, data);
+      const { access_token, user } = res.data;
 
-      const { accessToken, user } = res.data;
-
-      sessionStorage.setItem(STORAGE_KEY, accessToken);
+      sessionStorage.setItem(STORAGE_KEY, access_token);
 
       dispatch({
         type: Types.REGISTER,
         payload: {
           user: {
             ...user,
-            accessToken,
+            access_token,
           },
         },
       });
@@ -182,6 +181,7 @@ export function AuthProvider({ children }: Props) {
 
   // LOGOUT
   const logout = useCallback(async () => {
+    await axios.get(endpoints.auth.logout);
     setSession(null);
     dispatch({
       type: Types.LOGOUT,

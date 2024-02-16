@@ -4,7 +4,7 @@ import { HOST_API } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
-const axiosInstance = axios.create({ baseURL: "http://localhost:8000/api" });
+const axiosInstance = axios.create({ baseURL: 'http://localhost:8000' });
 
 axiosInstance.interceptors.response.use(
   (res) => res,
@@ -30,9 +30,10 @@ export const endpoints = {
   kanban: '/api/kanban',
   calendar: '/api/calendar',
   auth: {
-    me: '/api/auth/me',
+    me: '/api/users/me',
     login: '/api/auth/login',
     register: '/api/auth/register',
+    logout: '/api/auth/logout',
   },
   mail: {
     list: '/api/mail/list',
